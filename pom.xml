@@ -4,7 +4,7 @@
 
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>org.nodens2k</groupId>
+  <groupId>io.github.nodens2k</groupId>
   <artifactId>tin-validators</artifactId>
   <version>0.1-SNAPSHOT</version>
 
