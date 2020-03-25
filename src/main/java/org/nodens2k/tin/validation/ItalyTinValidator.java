@@ -1,6 +1,7 @@
 package org.nodens2k.tin.validation;
 
 import java.util.regex.Pattern;
+import org.jetbrains.annotations.Contract;
 
 public final class ItalyTinValidator extends AbstractCountryTinValidator {
 
@@ -22,17 +23,15 @@ public final class ItalyTinValidator extends AbstractCountryTinValidator {
    * Hidden constructor.
    */
   private ItalyTinValidator() {
+    super("IT", "ITA", "380");
   }
 
+  @Contract(value = "null -> false", pure = true)
   @Override
   public boolean isValid(String tin) {
-    if (tin == null) {
-      return false;
-    }
-
     tin = sanitise(tin);
 
-    if (!CODE_REGEX.matcher(tin).matches()) {
+    if (tin == null || !CODE_REGEX.matcher(tin).matches()) {
       return false;
     }
 

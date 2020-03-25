@@ -1,8 +1,9 @@
 package org.nodens2k.tin.validation;
 
 import java.util.regex.Pattern;
+import org.jetbrains.annotations.Contract;
 
-public class BulgariaTinValidator extends AbstractCountryTinValidator {
+public final class BulgariaTinValidator extends AbstractCountryTinValidator {
 
   public static final CountryTinValidator INSTANCE = new BulgariaTinValidator();
 
@@ -11,16 +12,14 @@ public class BulgariaTinValidator extends AbstractCountryTinValidator {
   private static final int[] WEIGHT = {2, 4, 8, 5, 10, 9, 7, 3, 6};
 
   private BulgariaTinValidator() {
+    super("BG", "BGR", "100");
   }
 
+  @Contract(value = "null -> false", pure = true)
   @Override
   public boolean isValid(String tin) {
-    if (tin == null) {
-      return false;
-    }
-
     tin = sanitise(tin);
-    if (!TIN_REGEX.matcher(tin).matches()) {
+    if (tin == null || !TIN_REGEX.matcher(tin).matches()) {
       return false;
     }
 

@@ -1,6 +1,7 @@
 package org.nodens2k.tin.validation;
 
 import java.util.regex.Pattern;
+import org.jetbrains.annotations.Contract;
 
 public final class RomaniaTinValidator extends AbstractCountryTinValidator {
 
@@ -14,16 +15,14 @@ public final class RomaniaTinValidator extends AbstractCountryTinValidator {
    * Hidden constructor.
    */
   private RomaniaTinValidator() {
+    super("RO", "ROU", "642");
   }
 
+  @Contract(value = "null -> false", pure = true)
   @Override
   public boolean isValid(String tin) {
-    if (tin == null) {
-      return false;
-    }
-
     tin = sanitise(tin);
-    if (!CNP_REGEX.matcher(tin).matches()) {
+    if (tin == null || !CNP_REGEX.matcher(tin).matches()) {
       return false;
     }
 

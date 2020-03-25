@@ -11,7 +11,9 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestFactory;
 import org.mockito.Mockito;
 
-public class TinValidatorTest {
+public final class TinValidatorTest {
+
+  private final TinValidator validator = new TinValidator(true);
 
   @Test
   public void testRegister() {
@@ -19,7 +21,6 @@ public class TinValidatorTest {
     CountryTinValidator mockValidator = Mockito.mock(CountryTinValidator.class);
     when(mockValidator.isValid("111")).thenReturn(true);
     TinValidator.register(mockValidator, "Extra", "XXX");
-    TinValidator validator = new TinValidator(true);
 
     // When
     boolean valid = validator.isValid("XXX", "111");
@@ -39,7 +40,16 @@ public class TinValidatorTest {
         "BE,00012511119,true",
         "BE,00012511148,true",
 
+        "BG,null,false",
         "BG,7501010010,true",
+
+        "CY,null,false",
+        "CY,00123123T,true",
+        "CY,99652156X,true",
+
+        "DE,null,false",
+        "DE,26954371827,true",
+        "DE,65929970489,true",
 
         "ES,62276484-M,true",
         "ES,X 9778222 W,true",
@@ -56,6 +66,11 @@ public class TinValidatorTest {
         "ES,null,false",
 
         "FR,30 23 217 600 053,true",
+        "FR,11 22 333 444 555,false",
+        "FR,null,false",
+
+        "HR,94577403194,true",
+        "HR,null,false",
 
         "IT,MRTMTT25D09F205Z,true",
         "IT,MRTMTT25D09F205X,false",
@@ -79,13 +94,12 @@ public class TinValidatorTest {
     return Arrays.stream(tests)
         .map(definition -> {
           String[] tokens = definition.split(",");
-          final String countryCode = parseNull(tokens[0]);
-          final String tin = parseNull(tokens[1]);
-          final boolean valid = "true".equals(tokens[2]);
 
           return DynamicTest.dynamicTest(definition, () -> {
             // Given
-            TinValidator validator = new TinValidator(true);
+            String countryCode = parseNull(tokens[0]);
+            String tin = parseNull(tokens[1]);
+            boolean valid = "true".equals(tokens[2]);
             // When
             boolean isValid = validator.isValid(countryCode, tin);
             // Then

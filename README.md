@@ -2,7 +2,10 @@
 
 Tax and Personal Identification Number validation for several countries.
 
-## Quickstart
+All algorithms for European countries are based on the [Public Algorithms](https://ec.europa.eu/taxation_customs/tin/specs/FS-TIN%20Algorithms-Public.docx)
+published by the European Commission.
+
+## Quick Start
 
 For Maven projects, add the following dependency to your pom.xml file:
 
@@ -10,18 +13,19 @@ For Maven projects, add the following dependency to your pom.xml file:
 <dependency>
   <groupId>org.nodens2k</groupId>
   <artifactId>tin-validators</artifactId>
-  <version>0.1-SNAPSHOT</version>
+  <version>1.0</version>
 </dependency>
 ```
 
 Afterwards, you can use the library through its main entry-point:
 
 ```java
+import org.nodens2k.tin.validation.CountryTinValidator;
 import org.nodens2k.tin.validation.TinValidator;
 
 public class Example {
   public static void main(String... args) {
-    TinValidator validator = new TinValidator(true);
+    CountryTinValidator validator = new TinValidator(true);
 
     String country = "ES";
     String tin = "39245072-B";
@@ -50,7 +54,11 @@ public class Example {
 - Austria
 - Belgium
 - Bulgaria
+- Croatia
+- Cyprus
+- Czechia (only best effort, as the check algorithm is not public)
 - France
+- Germany
 - Italy
 - Portugal (support for *CIVIL ID No* and *TAX No*)
 - Romania
