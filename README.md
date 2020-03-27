@@ -121,5 +121,5 @@ If you have any questions, feel free to open an issue here on GitHub.
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE.md)
+This project is licensed under the MIT License - see the [LICENSE](LICENSE)
 file for details.
