@@ -3,7 +3,6 @@
 ![release](https://img.shields.io/maven-central/v/io.github.nodens2k/tin-validators)
 ![snapshot](https://img.shields.io/nexus/s/io.github.nodens2k/tin-validators?color=green&server=https%3A%2F%2Foss.sonatype.org&style=flat)
 ![last commit](https://img.shields.io/github/last-commit/nodens2k/tin-validators)
-![license](https://img.shields.io/github/license/nodens2k/tin-validators)
 
 Tax and Personal Identification Number validation for several countries.
 
