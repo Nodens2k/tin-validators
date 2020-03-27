@@ -11,7 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Now TinValidator implements CountryTinValidator
 - New methods in CountryTinValidator interface
-- Implementations for Croatia, Cyprus, Czech Republic and Germany
+- Implementations for Croatia, Cyprus, Czech Republic, Denmark, Estonia, Finland, Germany and Greece
 - Test suite improvements
 
 ## [1.0.0] - 2020-03-23

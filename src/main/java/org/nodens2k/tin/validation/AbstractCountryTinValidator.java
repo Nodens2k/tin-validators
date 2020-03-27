@@ -15,10 +15,17 @@ public abstract class AbstractCountryTinValidator implements CountryTinValidator
 
   private static final Pattern INVALID_CHARS = Pattern.compile("[^0-9A-Za-z]+");
 
+  private final Pattern invalidChars;
+
   private final Set<String> countries;
 
   protected AbstractCountryTinValidator(@NotNull String... countries) {
+    this(INVALID_CHARS, countries);
+  }
+
+  protected AbstractCountryTinValidator(Pattern invalidChars, @NotNull String... countries) {
     assert countries.length > 0 : "No languages supported?";
+    this.invalidChars = invalidChars;
     this.countries = new HashSet<>(Arrays.asList(countries));
   }
 
@@ -50,7 +57,7 @@ public abstract class AbstractCountryTinValidator implements CountryTinValidator
    */
   @Contract(value = "null -> null; !null -> !null", pure = true)
   protected final String sanitise(String tin) {
-    return tin == null ? null : INVALID_CHARS.matcher(tin).replaceAll("").toUpperCase(Locale.ROOT);
+    return tin == null ? null : invalidChars.matcher(tin).replaceAll("").toUpperCase(Locale.ROOT);
   }
 
   /**

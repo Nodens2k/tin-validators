@@ -51,6 +51,12 @@ public final class TinValidatorTest {
         "DE,26954371827,true",
         "DE,65929970489,true",
 
+        "DK,010111-1113,true",
+
+        "EE,37102250382,true",
+        "EE,32708101201,true",
+        "EE,46304280206,true",
+
         "ES,62276484-M,true",
         "ES,X 9778222 W,true",
         "ES,F/7828980H,true",
@@ -65,9 +71,16 @@ public final class TinValidatorTest {
         "ES,999999990,false",
         "ES,null,false",
 
+        "FI,131052-308T,true",
+
         "FR,30 23 217 600 053,true",
         "FR,11 22 333 444 555,false",
         "FR,null,false",
+
+        "GR,123456789,true",
+        "GR,12345678A,false",
+        "GR,1234567890,false",
+        "GR,null,false",
 
         "HR,94577403194,true",
         "HR,null,false",

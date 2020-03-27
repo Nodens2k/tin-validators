@@ -7,7 +7,7 @@ public final class ItalyTinValidator extends AbstractCountryTinValidator {
 
   public static final CountryTinValidator INSTANCE = new ItalyTinValidator();
 
-  private static final Pattern CODE_REGEX = Pattern.compile("^[A-Z]{6}[0-9]{2}[A-Z][0-9]{2}[A-Z][0-9]{3}[A-Z]$");
+  private static final Pattern CODE_REGEX = Pattern.compile("^[A-Z]{6}[0-9]{2}[ABCDEHLMPRST][0-9]{2}[A-Z][0-9]{3}[A-Z]$");
 
   private static final int[][] NUMBER_MAP = {
       {1, 0, 5, 7, 9, 13, 15, 17, 19, 21},

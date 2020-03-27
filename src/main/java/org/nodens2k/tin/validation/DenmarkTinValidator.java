@@ -1,6 +1,7 @@
 package org.nodens2k.tin.validation;
 
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.time.format.ResolverStyle;
 import java.util.regex.Pattern;
 
@@ -41,10 +42,16 @@ public final class DenmarkTinValidator extends AbstractCountryTinValidator {
       return false;
     }
 
+    try {
+      FORMATTER.parse(tin.substring(0, 6));
+    } catch (DateTimeParseException e) {
+      return false;
+    }
+
     int year = parseInt(tin.substring(4, 6));
     if (year >= 37 && year <= 57) {
       int serial = parseInt(tin.substring(6));
-      return serial <= 5000 && serial >= 8999;
+      return serial <= 5000 || serial >= 8999;
     }
     return true;
   }

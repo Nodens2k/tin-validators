@@ -13,7 +13,17 @@ For Maven projects, add the following dependency to your pom.xml file:
 <dependency>
   <groupId>org.nodens2k</groupId>
   <artifactId>tin-validators</artifactId>
-  <version>1.0</version>
+  <version>1.0.0</version>
+</dependency>
+```
+
+or, for the current snapshot:
+
+```xml
+<dependency>
+  <groupId>org.nodens2k</groupId>
+  <artifactId>tin-validators</artifactId>
+  <version>1.1.0-SNAPSHOT</version>
 </dependency>
 ```
 
@@ -51,15 +61,39 @@ public class Example {
 
 ## Supported Countries
 
-- Austria
-- Belgium
-- Bulgaria
-- Croatia
-- Cyprus
-- Czechia (only best effort, as the check algorithm is not public)
-- France
-- Germany
-- Italy
-- Portugal (support for *CIVIL ID No* and *TAX No*)
-- Romania
-- Spain (support for *NIF*, *NIE* and *CIF*)
+| Country  | ISO Codes    | Version        | Notes   |
+|----------|------------- |----------------|---------|
+| Austria  | AT, AUT, 040 | 1.0.0          |         |
+| Belgium  | BE, BEL, 056 | 1.0.0          |         |
+| Bulgaria | BG, BGR, 100 | 1.0.0          |         |
+| Croatia  | HR, HRV, 191 | 1.1.0-SNAPSHOT |         |
+| Cyprus   | CY, CYP, 196 | 1.1.0-SNAPSHOT |         |
+| Czechia  | CZ, CZE, 203 | 1.1.0-SNAPSHOT | Only best effort, the algorithm is not public |
+| Denmark  | DK, DNK, 208 | 1.1.0-SNAPSHOT |         |
+| Estonia  | EE, EST, 233 | 1.1.0-SNAPSHOT |         |
+| Finland  | FI, FIN, 246 | 1.1.0-SNAPSHOT |         |
+| France   | FR, FRA, 250 | 1.0.0          |         |
+| Germany  | DE, DEU, 276 | 1.0.0          |         |
+| Greece   | GR, GRC, 300 | 1.1.0-SNAPSHOT          |         |
+| Italy    | IT, ITA, 380 | 1.0.0          | Some checks still missing |
+| Portugal | PT, PRT, 620 | 1.0.0          | Support for *CIVIL ID No* and *TAX No* |
+| Romania  | RO, ROU, 642 | 1.0.0          |         |
+| Spain    | ES, ESP, 724 | 1.0.0          | Support for *NIF*, *NIE* and *CIF* |
+
+## Planned but not supported yet
+
+The following countries will be added to the supported list in the future:
+
+- Hungary
+- Ireland
+- Latvia
+- Lithuania
+- Luxembourg
+- Malta
+- Netherlands
+- Poland
+- Slovakia
+- Slovenia
+- Sweden
+- UK
+

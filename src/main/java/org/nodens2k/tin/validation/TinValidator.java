@@ -33,8 +33,11 @@ public final class TinValidator implements CountryTinValidator {
     register(CyprusTinValidator.INSTANCE);
     register(CzechiaTinValidator.INSTANCE);
     register(DenmarkTinValidator.INSTANCE);
+    register(EstoniaTinValidator.INSTANCE);
+    register(FinlandTinValidator.INSTANCE);
     register(FranceTinValidator.INSTANCE);
     register(GermanyTinValidator.INSTANCE);
+    register(GreeceTinValidator.INSTANCE);
     register(ItalyTinValidator.INSTANCE);
     register(PortugalTinValidator.INSTANCE);
     register(RomaniaTinValidator.INSTANCE);
