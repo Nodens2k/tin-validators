@@ -40,7 +40,7 @@ public interface TinValidatorFactory {
   CountryTinValidator getValidatorFor(String countryCode);
 
   /**
-   * Gets a {@linke Builder} instance pre-configured as this factory.
+   * Gets a {@link Builder} instance pre-configured as this factory.
    *
    * @return A pre-configured builder
    */
