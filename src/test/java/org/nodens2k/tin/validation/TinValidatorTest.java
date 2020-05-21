@@ -31,23 +31,40 @@ public final class TinValidatorTest {
   }
 
   @TestFactory
+  public Stream<DynamicTest> testCommonFalseTins() {
+    return validator.getSupportedCountries()
+        .stream()
+        .flatMap(code -> Stream.of(code + ",null,false", code + ",,false", code + ",---,false"))
+        .map(definition -> {
+          String[] tokens = definition.split(",");
+
+          return DynamicTest.dynamicTest(definition, () -> {
+            // Given
+            String countryCode = parseNull(tokens[0]);
+            String tin = parseNull(tokens[1]);
+            boolean valid = "true".equals(tokens[2]);
+            // When
+            boolean isValid = validator.isValid(countryCode, tin);
+            // Then
+            assertThat(isValid).isEqualTo(valid);
+
+          });
+        });
+  }
+
+  @TestFactory
   public Stream<DynamicTest> testMultipleTins() {
     String[] tests = {
-        "AT,null,false",
         "AT,931736581,true",
 
-        "BE,null,false",
         "BE,00012511119,true",
         "BE,00012511148,true",
 
-        "BG,null,false",
         "BG,7501010010,true",
 
-        "CY,null,false",
         "CY,00123123T,true",
         "CY,99652156X,true",
 
-        "DE,null,false",
         "DE,26954371827,true",
         "DE,65929970489,true",
 
@@ -69,37 +86,45 @@ public final class TinValidatorTest {
         "ES,I19928324,false",
         "ES,A1992832478,false",
         "ES,999999990,false",
-        "ES,null,false",
 
         "FI,131052-308T,true",
 
         "FR,30 23 217 600 053,true",
         "FR,11 22 333 444 555,false",
-        "FR,null,false",
+
+        "GB,1234567890,true",
+        "GB,AA123456A,true",
+        "GB,ZZ111111,false",
+        "GB,DD123456A,false",
+        "GB,AB1234567,false",
 
         "GR,123456789,true",
         "GR,12345678A,false",
         "GR,1234567890,false",
-        "GR,null,false",
 
         "HR,94577403194,true",
-        "HR,null,false",
 
         "IT,MRTMTT25D09F205Z,true",
         "IT,MRTMTT25D09F205X,false",
         "IT,MRTMTT25D09F20Z,false",
-        "IT,null,false",
+        "IT,FLRNTN63D28Z131Q,true",
+        "IT,FRGLSE77S45F205S,true",
+        "IT,ZTTLMR74S48F205Z,true",
+        "IT,ITITDKWL65P43F205P,true",
+        "IT,00000001230,false",
+        "IT,00000011230,false",
+        "IT,00000011205,true",
 
-        "PT,null,false",
         "PT,1234,false",
         "PT,999999990,true",
         "PT,99.999.999-9,false",
         "PT,501442600,true",
 
-        "RO,null,false",
         "RO,1800101221145,false",
         "RO,1800101221,false",
         "RO,1800101221144,true",
+
+        "SI,15012557,true",
 
         "XX,111,true"
     };

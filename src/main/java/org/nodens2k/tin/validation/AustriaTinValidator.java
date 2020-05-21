@@ -19,7 +19,7 @@ public final class AustriaTinValidator extends AbstractCountryTinValidator {
   @Contract("null -> false")
   @Override
   public boolean isValid(String tin) {
-    tin = sanitise(tin);
+    tin = sanitise(tin, "AT");
     if (tin == null || !TIN_REGEX.matcher(tin).matches()) {
       return false;
     }

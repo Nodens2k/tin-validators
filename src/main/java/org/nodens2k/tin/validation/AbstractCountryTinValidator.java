@@ -50,14 +50,22 @@ public abstract class AbstractCountryTinValidator implements CountryTinValidator
   }
 
   /**
-   * Removes any symbol character in the incoming TIN number.
+   * Removes the optional country code from the beginning of the passed TIN number and sanitises it.
+   *
+   * <p>This optional country code is usually present in TIN numbers of the European Union, when
+   * used outside their origin countries.
    *
    * @param tin TIN number to sanitise
+   * @param countryCode Country code to remove from the TIN number if present
    * @return Sanitised TIN number
    */
   @Contract(value = "null -> null; !null -> !null", pure = true)
-  protected final String sanitise(String tin) {
-    return tin == null ? null : invalidChars.matcher(tin).replaceAll("").toUpperCase(Locale.ROOT);
+  protected final String sanitise(String tin, String countryCode) {
+    String sanitised = tin == null ? null : invalidChars.matcher(tin).replaceAll("").toUpperCase(Locale.ROOT);
+    if (tin != null && sanitised.startsWith(countryCode)) {
+      sanitised = sanitised.substring(2);
+    }
+    return sanitised;
   }
 
   /**
@@ -90,5 +98,24 @@ public abstract class AbstractCountryTinValidator implements CountryTinValidator
       value = 10L * value + (c - '0');
     }
     return value;
+  }
+
+  /**
+   * Performs the Luhn algorithm on the specified string.
+   *
+   * <p>This method assumes that the passed string only contains numeric characters.
+   *
+   * @param s The string to validate
+   * @return {@code true} if the number passes the Luhn test; {@code false} otherwise
+   */
+  protected final boolean luhn(final String s) {
+    int sum = 0;
+    for (int i = 0; i < s.length(); i++) {
+      int digit = s.charAt(i) - '0';
+      int tmp = digit * (i % 2 + 1);
+      sum += tmp / 10 + tmp % 10;
+    }
+
+    return sum % 10 == 0;
   }
 }

@@ -3,22 +3,22 @@ package org.nodens2k.tin.validation;
 import java.util.regex.Pattern;
 import org.jetbrains.annotations.Contract;
 
-public final class BulgariaTinValidator extends AbstractCountryTinValidator {
+public final class SloveniaTinValidator extends AbstractCountryTinValidator {
 
-  public static final CountryTinValidator INSTANCE = new BulgariaTinValidator();
+  public static final CountryTinValidator INSTANCE = new SloveniaTinValidator();
 
-  private static final Pattern TIN_REGEX = Pattern.compile("^[0-9]{10}$");
+  private static final Pattern TIN_REGEX = Pattern.compile("^[1-9][0-9]{7}$");
 
   private static final int[] WEIGHT = {2, 4, 8, 5, 10, 9, 7, 3, 6};
 
-  private BulgariaTinValidator() {
-    super("BG", "BGR", "100");
+  private SloveniaTinValidator() {
+    super("SI", "SVN", "705");
   }
 
   @Contract(value = "null -> false", pure = true)
   @Override
   public boolean isValid(String tin) {
-    tin = sanitise(tin, "BG");
+    tin = sanitise(tin, "SI");
     if (tin == null || !TIN_REGEX.matcher(tin).matches()) {
       return false;
     }

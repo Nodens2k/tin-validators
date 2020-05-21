@@ -16,7 +16,7 @@ public final class GreeceTinValidator extends AbstractCountryTinValidator {
   @Contract(value = "null -> false", pure = true)
   @Override
   public boolean isValid(String tin) {
-    tin = sanitise(tin);
+    tin = sanitise(tin, "GR");
     return tin != null && TIN_REGEX.matcher(tin).matches();
   }
 }

@@ -19,7 +19,7 @@ public final class GermanyTinValidator extends AbstractCountryTinValidator {
   @Contract(value = "null -> false", pure = true)
   @Override
   public boolean isValid(String tin) {
-    tin = sanitise(tin);
+    tin = sanitise(tin, "DE");
     if (tin == null || !TIN_REGEX.matcher(tin).matches()) {
       return false;
     }

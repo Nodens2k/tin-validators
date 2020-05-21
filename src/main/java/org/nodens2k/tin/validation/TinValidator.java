@@ -2,52 +2,30 @@ package org.nodens2k.tin.validation;
 
 import java.util.Collection;
 import java.util.Collections;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.UnmodifiableView;
 
 /**
  * Tax Identification Number validation for several countries.
+ *
+ * <p>This class is thread-safe, but not immutable. Registering any extra validator, affects all
+ * instances of this class.
+ *
+ * <p>For an immutable alternative to this class, it is better to use {@link DefaultTinValidatorFactory}.
+ *
+ * <p>Example of usage:
+ *
+ * <pre>
+ *   TinValidator validator = new TinValidator(true);
+ *   boolean valid = validator.isValid("ES", "12371896N");
+ * </pre>
  */
 public final class TinValidator implements CountryTinValidator {
 
-  /**
-   * Registered validators.
-   */
-  private static final Map<String, CountryTinValidator> VALIDATORS = new HashMap<>();
+  private static TinValidatorFactory globalFactory = DefaultTinValidatorFactory.INSTANCE;
 
-  /**
-   * Supported countries.
-   */
-  private static final Set<String> COUNTRIES = new HashSet<>();
-
-  static {
-    register(AustriaTinValidator.INSTANCE);
-    register(BelgiumTinValidator.INSTANCE);
-    register(BulgariaTinValidator.INSTANCE);
-    register(CroatiaTinValidator.INSTANCE);
-    register(CyprusTinValidator.INSTANCE);
-    register(CzechiaTinValidator.INSTANCE);
-    register(DenmarkTinValidator.INSTANCE);
-    register(EstoniaTinValidator.INSTANCE);
-    register(FinlandTinValidator.INSTANCE);
-    register(FranceTinValidator.INSTANCE);
-    register(GermanyTinValidator.INSTANCE);
-    register(GreeceTinValidator.INSTANCE);
-    register(ItalyTinValidator.INSTANCE);
-    register(PortugalTinValidator.INSTANCE);
-    register(RomaniaTinValidator.INSTANCE);
-    register(SpainTinValidator.INSTANCE);
-  }
-
-  /**
-   * Validator to be used for unsupported countries.
-   */
-  private final CountryTinValidator defaultValidator;
+  private final boolean defaultValidation;
 
   /**
    * Creates a new instance.
@@ -56,12 +34,9 @@ public final class TinValidator implements CountryTinValidator {
    */
   @Contract(pure = true)
   public TinValidator(boolean defaultValidation) {
-    defaultValidator = DefaultCountryTinValidator.getInstance(defaultValidation);
+    this.defaultValidation = defaultValidation;
   }
 
-  /**
-   * @param tin Tax identification number
-   */
   @Contract(value = "null -> false", pure = true)
   @Override
   public boolean isValid(String tin) {
@@ -71,7 +46,8 @@ public final class TinValidator implements CountryTinValidator {
   @Contract("null, _ -> false; _, null -> false")
   @Override
   public boolean isValid(String countryCode, String tin) {
-    return VALIDATORS.getOrDefault(countryCode, defaultValidator).isValid(tin);
+    CountryTinValidator validator = globalFactory.getValidatorFor(countryCode);
+    return (validator == null ? DefaultCountryTinValidator.getInstance(defaultValidation) : validator).isValid(tin);
   }
 
   @NotNull
@@ -79,13 +55,13 @@ public final class TinValidator implements CountryTinValidator {
   @Override
   @UnmodifiableView
   public Collection<String> getSupportedCountries() {
-    return Collections.unmodifiableSet(COUNTRIES);
+    return Collections.unmodifiableSet(globalFactory.getAllMappings().keySet());
   }
 
   @Contract(value = "null -> false", pure = true)
   @Override
   public boolean isCountrySupported(String countryCode) {
-    return COUNTRIES.contains(countryCode);
+    return globalFactory.getAllMappings().containsKey(countryCode);
   }
 
   /**
@@ -97,12 +73,7 @@ public final class TinValidator implements CountryTinValidator {
    * @param validator The validator instance to register
    */
   public static void register(final CountryTinValidator validator) {
-    if (validator != null) {
-      for (String country : validator.getSupportedCountries()) {
-        VALIDATORS.put(country, validator);
-        COUNTRIES.add(country);
-      }
-    }
+    globalFactory = globalFactory.toBuilder().with(validator).build();
   }
 
   /**
@@ -112,11 +83,6 @@ public final class TinValidator implements CountryTinValidator {
    * @param countries Countries to associate to the validator
    */
   public static void register(final CountryTinValidator validator, String... countries) {
-    if (validator != null) {
-      for (String country : countries) {
-        VALIDATORS.put(country, validator);
-        COUNTRIES.add(country);
-      }
-    }
+    globalFactory = globalFactory.toBuilder().with(validator, countries).build();
   }
 }

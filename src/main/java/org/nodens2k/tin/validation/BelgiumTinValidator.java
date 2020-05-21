@@ -16,7 +16,7 @@ public final class BelgiumTinValidator extends AbstractCountryTinValidator {
   @Contract(value = "null -> false", pure = true)
   @Override
   public boolean isValid(String tin) {
-    tin = sanitise(tin);
+    tin = sanitise(tin, "BE");
     if (tin == null || !TIN_REGEX.matcher(tin).matches()) {
       return false;
     }

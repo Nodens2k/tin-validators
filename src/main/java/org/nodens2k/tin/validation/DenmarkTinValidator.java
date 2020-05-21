@@ -21,7 +21,7 @@ public final class DenmarkTinValidator extends AbstractCountryTinValidator {
 
   @Override
   public boolean isValid(String tin) {
-    tin = sanitise(tin);
+    tin = sanitise(tin, "DK");
     if (tin == null || !TIN_REGEX.matcher(tin).matches()) {
       return false;
     }

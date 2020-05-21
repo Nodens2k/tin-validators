@@ -21,7 +21,7 @@ public final class FinlandTinValidator extends AbstractCountryTinValidator {
 
   @Override
   public boolean isValid(String tin) {
-    tin = sanitise(tin);
+    tin = sanitise(tin, "FI");
     if (tin == null || !TIN_REGEX.matcher(tin).matches()) {
       return false;
     }
