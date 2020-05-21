@@ -13,3 +13,6 @@ buildNumber.properties
 #IntelliJ files
 .idea/
 *.iml
+
+# local scripts
+*.sh

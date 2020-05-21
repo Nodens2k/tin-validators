@@ -43,11 +43,23 @@ public final class TinValidator implements CountryTinValidator {
     return false;
   }
 
+  @Contract(value = "null,_ -> false; _,null -> false", pure = true)
+  @Override
+  public boolean isValid(String tin, TinType acceptedType) {
+    return false;
+  }
+
   @Contract("null, _ -> false; _, null -> false")
   @Override
   public boolean isValid(String countryCode, String tin) {
+    return isValid(countryCode, tin, TinType.ANY);
+  }
+
+  @Contract("null,_,_ -> false; _,null,_ -> false")
+  @Override
+  public boolean isValid(String countryCode, String tin, TinType acceptedType) {
     CountryTinValidator validator = globalFactory.getValidatorFor(countryCode);
-    return (validator == null ? DefaultCountryTinValidator.getInstance(defaultValidation) : validator).isValid(tin);
+    return (validator == null ? DefaultCountryTinValidator.getInstance(defaultValidation) : validator).isValid(tin, acceptedType);
   }
 
   @NotNull

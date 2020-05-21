@@ -43,10 +43,22 @@ public abstract class AbstractCountryTinValidator implements CountryTinValidator
     return countries.contains(countryCode);
   }
 
+  @Contract(value = "null -> false", pure = true)
+  @Override
+  public final boolean isValid(String tin) {
+    return isValid(tin, TinType.ANY);
+  }
+
   @Contract(value = "null, _ -> false; _, null -> false", pure = true)
   @Override
   public final boolean isValid(String countryCode, String tin) {
-    return countries.contains(countryCode) && isValid(tin);
+    return isValid(countryCode, tin, TinType.ANY);
+  }
+
+  @Override
+  @Contract(value = "null,_,_ -> false; _,null,_ -> false", pure = true)
+  public final boolean isValid(String countryCode, String tin, TinType acceptedType) {
+    return countries.contains(countryCode) && isValid(tin, acceptedType);
   }
 
   /**
@@ -59,10 +71,10 @@ public abstract class AbstractCountryTinValidator implements CountryTinValidator
    * @param countryCode Country code to remove from the TIN number if present
    * @return Sanitised TIN number
    */
-  @Contract(value = "null -> null; !null -> !null", pure = true)
+  @Contract(value = "null,_ -> null; !null,_ -> !null", pure = true)
   protected final String sanitise(String tin, String countryCode) {
     String sanitised = tin == null ? null : invalidChars.matcher(tin).replaceAll("").toUpperCase(Locale.ROOT);
-    if (tin != null && sanitised.startsWith(countryCode)) {
+    if (tin != null && countryCode != null && sanitised.startsWith(countryCode)) {
       sanitised = sanitised.substring(2);
     }
     return sanitised;

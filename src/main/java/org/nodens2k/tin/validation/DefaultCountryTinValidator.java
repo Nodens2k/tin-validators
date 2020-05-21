@@ -22,12 +22,22 @@ public final class DefaultCountryTinValidator implements CountryTinValidator {
   @Contract(value = "null -> false", pure = true)
   @Override
   public boolean isValid(String tin) {
+    return isValid(tin, TinType.ANY);
+  }
+
+  @Override
+  public boolean isValid(String tin, TinType acceptedType) {
     return tin != null && value;
   }
 
   @Contract(value = "null, _ -> false; _, null -> false", pure = true)
   @Override
   public boolean isValid(String countryCode, String tin) {
+    return isValid(countryCode, tin, TinType.ANY);
+  }
+
+  @Override
+  public boolean isValid(String countryCode, String tin, TinType acceptedType) {
     return countryCode != null && tin != null && value;
   }
 

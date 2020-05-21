@@ -18,9 +18,9 @@ public final class RomaniaTinValidator extends AbstractCountryTinValidator {
     super("RO", "ROU", "642");
   }
 
-  @Contract(value = "null -> false", pure = true)
+  @Contract(value = "null,_ -> false", pure = true)
   @Override
-  public boolean isValid(String tin) {
+  public boolean isValid(String tin, TinType acceptedType) {
     tin = sanitise(tin, "RO");
     if (tin == null || !CNP_REGEX.matcher(tin).matches()) {
       return false;

@@ -29,15 +29,16 @@ public final class ItalyTinValidator extends AbstractCountryTinValidator {
     super("IT", "ITA", "380");
   }
 
-  @Contract(value = "null -> false", pure = true)
+  @Contract(value = "null,_ -> false", pure = true)
   @Override
-  public boolean isValid(String tin) {
+  public boolean isValid(String tin, TinType acceptedType) {
     tin = sanitise(tin, "IT");
 
     if (tin != null) {
-      if (CODE_REGEX.matcher(tin).matches()) {
+      if (acceptedType != TinType.PERSONAL && CODE_REGEX.matcher(tin).matches()) {
         return isValidCode(tin);
-      } else if (CARD_REGEX.matcher(tin).matches()) {
+      }
+      if (acceptedType != TinType.COMPANY && CARD_REGEX.matcher(tin).matches()) {
         return isValidCard(tin);
       }
     }

@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import org.jetbrains.annotations.Contract;
 
 public final class UkTinValidator extends AbstractCountryTinValidator {
 
@@ -18,8 +19,9 @@ public final class UkTinValidator extends AbstractCountryTinValidator {
     super("GB", "GBR", "826");
   }
 
+  @Contract(value = "null,_ -> false; _,null -> false", pure = true)
   @Override
-  public boolean isValid(String tin) {
+  public boolean isValid(String tin, TinType acceptedType) {
     tin = sanitise(tin, "GB");
     if (tin == null) {
       return false;

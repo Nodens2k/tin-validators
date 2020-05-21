@@ -13,13 +13,23 @@ import org.jetbrains.annotations.UnmodifiableView;
 public interface CountryTinValidator {
 
   /**
-   * Determines if the specified TIN is a valid one.
+   * Determines if the specified TIN is a valid one, accepting any type.
    *
    * @param tin Tax identification number
    * @return {@code true} if the passed TIN is valid; {@code false} otherwise
    */
   @Contract(value = "null -> false", pure = true)
   boolean isValid(String tin);
+
+  /**
+   * Determines if the specified TIN is a valid one.
+   *
+   * @param tin Tax identification number
+   * @param acceptedType The type of TIN that will validate to {@code true}
+   * @return {@code true} if the passed TIN is valid; {@code false} otherwise
+   */
+  @Contract(value = "null,_ -> false; _,null -> false", pure = true)
+  boolean isValid(String tin, TinType acceptedType);
 
   /**
    * Determines if the specified TIN is a valid one for the specified country.
@@ -31,8 +41,22 @@ public interface CountryTinValidator {
    * @param tin Tax identification number
    * @return {@code true} if the passed TIN is valid; {@code false} otherwise
    */
-  @Contract(value = "null,_ -> false; _,null -> false", pure = true)
+  @Contract(value = "null,_ -> false", pure = true)
   boolean isValid(String countryCode, String tin);
+
+  /**
+   * Determines if the specified TIN is a valid one for the specified country.
+   *
+   * <p>This method allows the creation of multi-country validators, as well as
+   * supporting different country code standards.
+   *
+   * @param countryCode Country code
+   * @param tin Tax identification number
+   * @param acceptedType The type of TIN that will validate to {@code true}
+   * @return {@code true} if the passed TIN is valid; {@code false} otherwise
+   */
+  @Contract(value = "null,_,_ -> false; _,null,_ -> false", pure = true)
+  boolean isValid(String countryCode, String tin, TinType acceptedType);
 
   /**
    * Gets all the countries supported by this validator instance.

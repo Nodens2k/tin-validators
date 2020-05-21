@@ -25,7 +25,7 @@ public final class SpainTinValidator extends AbstractCountryTinValidator {
 
   @Contract(value = "null -> false", pure = true)
   @Override
-  public boolean isValid(String tin) {
+  public boolean isValid(String tin, TinType acceptedType) {
     tin = sanitise(tin, "ES");
     if (tin == null || tin.isEmpty()) {
       return false;
@@ -47,7 +47,7 @@ public final class SpainTinValidator extends AbstractCountryTinValidator {
       case 'X':
       case 'Y':
       case 'Z':
-        return isValidNif(tin);
+        return acceptedType != TinType.COMPANY && isValidNif(tin);
       case 'A':
       case 'B':
       case 'C':
@@ -65,7 +65,7 @@ public final class SpainTinValidator extends AbstractCountryTinValidator {
       case 'V':
       case 'N':
       case 'W':
-        return isValidCif(tin);
+        return acceptedType != TinType.PERSONAL && isValidCif(tin);
       default:
         return false;
     }

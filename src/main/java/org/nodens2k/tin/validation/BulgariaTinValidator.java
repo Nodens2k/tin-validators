@@ -15,9 +15,9 @@ public final class BulgariaTinValidator extends AbstractCountryTinValidator {
     super("BG", "BGR", "100");
   }
 
-  @Contract(value = "null -> false", pure = true)
+  @Contract(value = "null,_ -> false", pure = true)
   @Override
-  public boolean isValid(String tin) {
+  public boolean isValid(String tin, TinType acceptedType) {
     tin = sanitise(tin, "BG");
     if (tin == null || !TIN_REGEX.matcher(tin).matches()) {
       return false;

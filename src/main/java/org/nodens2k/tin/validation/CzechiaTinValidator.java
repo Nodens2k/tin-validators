@@ -18,9 +18,9 @@ public final class CzechiaTinValidator extends AbstractCountryTinValidator {
     super("CZ", "CZE", "203");
   }
 
-  @Contract(value = "null -> false", pure = true)
+  @Contract(value = "null,_ -> false", pure = true)
   @Override
-  public boolean isValid(String tin) {
+  public boolean isValid(String tin, TinType acceptedType) {
     tin = sanitise(tin, "CZ");
     if (tin == null || !TIN_REGEX.matcher(tin).matches()) {
       return false;

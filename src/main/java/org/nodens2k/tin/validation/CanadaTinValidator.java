@@ -13,9 +13,9 @@ public final class CanadaTinValidator extends AbstractCountryTinValidator {
     super("CA", "CAN", "124");
   }
 
-  @Contract(value = "null -> false", pure = true)
+  @Contract(value = "null,_ -> false", pure = true)
   @Override
-  public boolean isValid(String tin) {
+  public boolean isValid(String tin, TinType acceptedType) {
     tin = sanitise(tin, "CA");
     if (tin == null || !REGEX.matcher(tin).matches()) {
       return false;

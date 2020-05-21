@@ -32,7 +32,7 @@ or, for the current snapshot (hosted in Sonatype Nexus repository):
 </dependency>
 ```
 
-Afterwards, you can use the library through its main entry-point:
+Afterwards, you can use the library through its main entry-point (TinValidatorFactory):
 
 ```java
 TinValidatorFactory factory = DefaultTinValidatorFactory.INSTANCE;
@@ -86,13 +86,12 @@ The following countries will be added to the supported list in the future:
 - Slovakia
 - Slovenia
 - Sweden
-- UK
 
 ## Contributing
 
-If you have information on any unsupported country algorithm, or if you found
+If you have information on any unsupported country algorithm, or if you find
 a bug, please submit a GitHub issue. Please search the existing issues before
-submitting to prevent duplicates.
+submitting, in order to prevent duplicates.
 
 Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of
 conduct, and the process for submitting pull requests to us.

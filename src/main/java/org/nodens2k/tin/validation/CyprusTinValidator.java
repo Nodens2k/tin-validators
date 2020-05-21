@@ -18,9 +18,9 @@ public final class CyprusTinValidator extends AbstractCountryTinValidator {
     super("CY", "CYP", "196");
   }
 
-  @Contract(value = "null -> false", pure = true)
+  @Contract(value = "null,_ -> false", pure = true)
   @Override
-  public boolean isValid(String tin) {
+  public boolean isValid(String tin, TinType acceptedType) {
     if (tin == null || !TIN_REGEX.matcher(tin).matches()) {
       return false;
     }
