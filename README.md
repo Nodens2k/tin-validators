@@ -18,7 +18,7 @@ For Maven projects, add the following dependency to your pom.xml file:
 <dependency>
   <groupId>io.github.nodens2k</groupId>
   <artifactId>tin-validators</artifactId>
-  <version>1.0.0</version>
+  <version>1.1.0</version>
 </dependency>
 ```
 
@@ -28,41 +28,22 @@ or, for the current snapshot (hosted in Sonatype Nexus repository):
 <dependency>
   <groupId>io.github.nodens2k</groupId>
   <artifactId>tin-validators</artifactId>
-  <version>1.1.0-SNAPSHOT</version>
+  <version>1.2.0-SNAPSHOT</version>
 </dependency>
 ```
 
 Afterwards, you can use the library through its main entry-point:
 
 ```java
-import org.nodens2k.tin.validation.CountryTinValidator;
-import org.nodens2k.tin.validation.TinValidator;
-
-public class Example {
-  public static void main(String... args) {
-    CountryTinValidator validator = new TinValidator(true);
-
-    String country = "ES";
-    String tin = "39245072-B";
-
-    System.out.println("Valid: " + validator.isValid(country, tin));
-  }
-}
+TinValidatorFactory factory = DefaultTinValidatorFactory.INSTANCE;
+boolean valid = factory.getValidatorFor("ES").isValid("72431799S");
 ```
 
 Or, if your application is only used in one of the supported countries, by its
 country-specific class:
 
 ```java
-import org.nodens2k.tin.validation.PortugalTinValidator;
-
-public class Example {
-  public static void main(String... args) {
-    String tin = "123456789";
-
-    System.out.println("Valid: " + PortugalTinValidator.INSTANCE.isValid(tin));
-  }
-}
+boolean valid = PortugalTinValidator.INSTANCE.isValid("123456789"));
 ```
 
 ## Features
