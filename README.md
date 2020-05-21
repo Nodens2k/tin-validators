@@ -74,21 +74,21 @@ public class Example {
 | Austria  | AT, AUT, 040 | 1.0.0          |         |
 | Belgium  | BE, BEL, 056 | 1.0.0          |         |
 | Bulgaria | BG, BGR, 100 | 1.0.0          |         |
-| Canada   | CA, CAN, 124 | 1.1.0-SNAPSHOT |         |
-| Croatia  | HR, HRV, 191 | 1.1.0-SNAPSHOT |         |
-| Cyprus   | CY, CYP, 196 | 1.1.0-SNAPSHOT |         |
-| Czechia  | CZ, CZE, 203 | 1.1.0-SNAPSHOT | Only best effort, the algorithm is not public |
-| Denmark  | DK, DNK, 208 | 1.1.0-SNAPSHOT |         |
-| Estonia  | EE, EST, 233 | 1.1.0-SNAPSHOT |         |
-| Finland  | FI, FIN, 246 | 1.1.0-SNAPSHOT |         |
+| Canada   | CA, CAN, 124 | 1.1.0          |         |
+| Croatia  | HR, HRV, 191 | 1.1.0          |         |
+| Cyprus   | CY, CYP, 196 | 1.1.0          |         |
+| Czechia  | CZ, CZE, 203 | 1.1.0          | Only best effort, the algorithm is not public |
+| Denmark  | DK, DNK, 208 | 1.1.0          |         |
+| Estonia  | EE, EST, 233 | 1.1.0          |         |
+| Finland  | FI, FIN, 246 | 1.1.0          |         |
 | France   | FR, FRA, 250 | 1.0.0          |         |
 | Germany  | DE, DEU, 276 | 1.0.0          |         |
-| Greece   | GR, GRC, 300 | 1.1.0-SNAPSHOT |         |
+| Greece   | GR, GRC, 300 | 1.1.0          |         |
 | Italy    | IT, ITA, 380 | 1.0.0          | Some checks still missing |
 | Portugal | PT, PRT, 620 | 1.0.0          | Support for *CIVIL ID No* and *TAX No* |
 | Romania  | RO, ROU, 642 | 1.0.0          |         |
 | Spain    | ES, ESP, 724 | 1.0.0          | Support for *NIF*, *NIE* and *CIF* |
-| UK       | GB, GBR, 826 | 1.1.0-SNAPSHOT |         |
+| UK       | GB, GBR, 826 | 1.1.0          |         |
 
 ### Planned but not supported yet
 
