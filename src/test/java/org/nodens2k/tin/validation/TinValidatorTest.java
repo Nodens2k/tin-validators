@@ -19,7 +19,7 @@ public final class TinValidatorTest {
   public void testRegister() {
     // Given
     CountryTinValidator mockValidator = Mockito.mock(CountryTinValidator.class);
-    when(mockValidator.isValid("111")).thenReturn(true);
+    when(mockValidator.isValid("111", TinType.ANY)).thenReturn(true);
     TinValidator.register(mockValidator, "Extra", "XXX");
 
     // When
@@ -27,7 +27,7 @@ public final class TinValidatorTest {
 
     // Then
     assertThat(valid).isTrue();
-    verify(mockValidator).isValid("111");
+    verify(mockValidator).isValid("111", TinType.ANY);
   }
 
   @TestFactory
